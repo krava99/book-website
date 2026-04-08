@@ -1,7 +1,11 @@
+"use client";
+
+import { useAuthStore } from "@/stores/userStore";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Header() {
+  const user = useAuthStore((state) => state.user);
   return (
     <>
       <nav className="flex items-center justify-between mx-8 my-8 bg-[#1F1F1F] py-7 px-4 rounded-2xl">
@@ -14,7 +18,7 @@ export default function Header() {
           <Link href="/my-library">My Library</Link>
         </ul>
         <div className="flex items-center gap-4">
-          <p>User Profile</p>
+          <p>{user?.name}</p>
           <button className="border border-[rgba(249,249,249,0.2)] rounded-[30px]  w-28.5 h-10.5">
             Log out
           </button>
