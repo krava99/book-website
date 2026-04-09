@@ -1,19 +1,16 @@
 "use client";
 
-import { fetchBooks } from "@/services/books.service";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import Modal from "@/components/Modal/Modal";
+import { useAddBook } from "@/hooks/useAddBook";
+import { useRecommendedBooks } from "@/hooks/useBooks";
+import { Book } from "@/types/booksSchema";
 import Image from "next/image";
 import { useState } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 export default function RecommendedPage() {
   const [page, setPage] = useState(1);
-  const [perPage, setPerPage] = useState(10);
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["books", page, perPage],
-    queryFn: () => fetchBooks(page, perPage),
-    placeholderData: keepPreviousData,
-  });
+  const { data, isLoading, isError } = useRecommendedBooks();
 
   const handleNextPage = () => {
     if (data && page < data.totalPages) {
@@ -24,7 +21,17 @@ export default function RecommendedPage() {
   const handlePrevPage = () => {
     setPage((prev) => Math.max(prev - 1, 1));
   };
-
+  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+  const { mutate: addBook, isPending } = useAddBook();
+  const handleAddToLibrary = () => {
+    if (selectedBook) {
+      addBook(selectedBook._id, {
+        onSuccess: () => {
+          setSelectedBook(null);
+        },
+      });
+    }
+  };
   return (
     <>
       <div className="w-212 h-163 bg-[#1f1f1f] rounded-4xl pt-10 px-10 pb-7">
@@ -66,6 +73,7 @@ export default function RecommendedPage() {
                 <div className="relative w-34.25 h-52">
                   <Image
                     className="rounded-xl object-cover"
+                    onClick={() => setSelectedBook(book)}
                     src={book.imageUrl}
                     alt={book.title}
                     fill
@@ -84,6 +92,33 @@ export default function RecommendedPage() {
               </li>
             ))}
           </ul>
+          {selectedBook && (
+            <Modal onClose={() => setSelectedBook(null)}>
+              <div className="flex flex-col items-center">
+                <Image
+                  src={selectedBook.imageUrl}
+                  alt={selectedBook.title}
+                  className=" object-cover rounded-lg mb-4 w-34.25 h-52"
+                  width={153}
+                  height={232}
+                />
+                <h2 className="text-1xl font-bold text-white">
+                  {selectedBook.title}
+                </h2>
+                <p className="text-[#686868]">{selectedBook.author}</p>
+                <p className="text-sm text-gray-300 mb-6 text-center">
+                  {selectedBook.totalPages} pages
+                </p>
+                <button
+                  onClick={handleAddToLibrary}
+                  disabled={isPending}
+                  className="border border-[rgba(249,249,249,0.2)] rounded-[30px] w-40.5 h-11.5 text-white hover:bg-white hover:text-black transition-all disabled:opacity-50"
+                >
+                  {isPending ? "Adding..." : "Add to library"}
+                </button>
+              </div>
+            </Modal>
+          )}
         </div>
       </div>
     </>

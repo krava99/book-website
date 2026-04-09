@@ -8,19 +8,32 @@ export default function RecommendedSidebarLayout({
 }) {
   return (
     <aside className="w-89 h-163 bg-[#1f1f1f] rounded-4xl">
-      <div className="flex flex-col mx-5 pt-10  gap-2">
-        <p className="">Filters:</p>
-        <input
-          className=" bg-[#262626] rounded-xl px-42 pl-3.5 py-4 w-79 12"
-          type="text"
-          placeholder="Book title"
-        />
-        <input
-          className="bg-[#262626] rounded-xl px-42 pl-3.5 py-4 w-79 12 "
-          type="text"
-          placeholder="The author"
-        />
-        <button className="border border-[rgba(249,249,249,0.2)] rounded-[30px]  w-28.5 h-10.5">
+      <div className="flex flex-col mx-5 pt-10 gap-2 w-73.75">
+        <p className="text-white text-[14px] ml-3.5">Filters:</p>
+
+        <label className="flex items-center bg-[#262626] rounded-xl px-3.5 py-3 border border-transparent focus-within:border-[rgba(249,249,249,0.2)] cursor-text transition-all">
+          <span className="text-[#686868] text-[14px] whitespace-nowrap mr-2">
+            Book title:
+          </span>
+          <input
+            className="bg-transparent text-white text-[14px] outline-none w-full placeholder:text-[#F9F9F9]"
+            type="text"
+            placeholder="Enter text"
+          />
+        </label>
+
+        <label className="flex items-center bg-[#262626] rounded-xl px-3.5 py-3 border border-transparent focus-within:border-[rgba(249,249,249,0.2)] cursor-text transition-all">
+          <span className="text-[#686868] text-[14px] whitespace-nowrap mr-2">
+            The author:
+          </span>
+          <input
+            className="bg-transparent text-white text-[14px] outline-none w-full placeholder:text-[#F9F9F9]"
+            type="text"
+            placeholder="Enter text"
+          />
+        </label>
+
+        <button className="mt-2 border border-[rgba(249,249,249,0.2)] text-white rounded-[30px] w-25 h-9.5 text-[14px] hover:bg-white hover:text-black transition-colors">
           To apply
         </button>
       </div>
@@ -34,9 +47,9 @@ export default function RecommendedSidebarLayout({
           </div>
 
           <p className="font-medium text-[14px] leading-[1.28571] tracking-[-0.02em] text-[#f9f9f9]">
-            Create a personal library:
+            Create a personal library :
             <span className="font-medium text-[14px] leading-[1.28571] tracking-[-0.02em] text-[#686868]">
-              add the books you intend to read to it.
+              &nbsp;add the books you intend to read to it.
             </span>
           </p>
         </div>
@@ -45,9 +58,9 @@ export default function RecommendedSidebarLayout({
             2
           </div>
           <p className="font-medium text-[14px] leading-[1.28571] tracking-[-0.02em] text-[#f9f9f9]">
-            Create your first workout:
+            Create your first workout :
             <span className="font-medium text-[14px] leading-[1.28571] tracking-[-0.02em] text-[#686868]">
-              define a goal, choose a period, start training.
+              &nbsp;define a goal, choose a period, start training.
             </span>
           </p>
         </div>

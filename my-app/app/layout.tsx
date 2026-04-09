@@ -29,6 +29,7 @@ export default function RootLayout({
       <TanStackProvider>
         <body className="min-h-full flex flex-col">
           {children}
+          <div id="modal-root" />
           <ToastContainer />
         </body>
       </TanStackProvider>

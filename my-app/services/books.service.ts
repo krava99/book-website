@@ -13,3 +13,8 @@ export const fetchBooks = async (
   });
   return res.data;
 };
+
+export const addBookFromRecommended = async (_id: string) => {
+  const response = await api.post(`/books/add/${_id}`);
+  return response.data;
+};
